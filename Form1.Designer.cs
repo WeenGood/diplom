@@ -33,19 +33,22 @@
             this.labelG = new System.Windows.Forms.Label();
             this.labelF = new System.Windows.Forms.Label();
             this.labelDXF = new System.Windows.Forms.Label();
-            this.labD = new System.Windows.Forms.Label();
-            this.labX1 = new System.Windows.Forms.Label();
-            this.labX2 = new System.Windows.Forms.Label();
-            this.labX2C = new System.Windows.Forms.Label();
-            this.labX1C = new System.Windows.Forms.Label();
-            this.labDC = new System.Windows.Forms.Label();
-            this.labX2Res = new System.Windows.Forms.Label();
-            this.labX1Res = new System.Windows.Forms.Label();
-            this.labDRes = new System.Windows.Forms.Label();
+            this.labelDYF = new System.Windows.Forms.Label();
+            this.labelDXG = new System.Windows.Forms.Label();
+            this.labelDYG = new System.Windows.Forms.Label();
+            this.labelMatrix = new System.Windows.Forms.Label();
+            this.labelYY = new System.Windows.Forms.Label();
+            this.labelXX = new System.Windows.Forms.Label();
+            this.labelX1Y1L1 = new System.Windows.Forms.Label();
+            this.labelFynMatrix = new System.Windows.Forms.Label();
+            this.labelMatrix2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.variantT = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.complete = new System.Windows.Forms.Button();
+            this.labelGiven = new System.Windows.Forms.Label();
+            this.labelFynXYL = new System.Windows.Forms.Label();
+            this.labelAnswers = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // pathB
@@ -70,7 +73,7 @@
             this.labelG.AutoSize = true;
             this.labelG.BackColor = System.Drawing.SystemColors.Control;
             this.labelG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelG.Location = new System.Drawing.Point(42, 265);
+            this.labelG.Location = new System.Drawing.Point(53, 167);
             this.labelG.Name = "labelG";
             this.labelG.Size = new System.Drawing.Size(2, 15);
             this.labelG.TabIndex = 2;
@@ -80,7 +83,7 @@
             this.labelF.AutoSize = true;
             this.labelF.BackColor = System.Drawing.SystemColors.Control;
             this.labelF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelF.Location = new System.Drawing.Point(42, 289);
+            this.labelF.Location = new System.Drawing.Point(53, 191);
             this.labelF.Name = "labelF";
             this.labelF.Size = new System.Drawing.Size(2, 15);
             this.labelF.TabIndex = 3;
@@ -90,100 +93,100 @@
             this.labelDXF.AutoSize = true;
             this.labelDXF.BackColor = System.Drawing.SystemColors.Control;
             this.labelDXF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labelDXF.Location = new System.Drawing.Point(42, 314);
+            this.labelDXF.Location = new System.Drawing.Point(53, 216);
             this.labelDXF.Name = "labelDXF";
             this.labelDXF.Size = new System.Drawing.Size(2, 15);
             this.labelDXF.TabIndex = 4;
             // 
-            // labD
+            // labelDYF
             // 
-            this.labD.AutoSize = true;
-            this.labD.BackColor = System.Drawing.SystemColors.Control;
-            this.labD.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labD.Location = new System.Drawing.Point(42, 345);
-            this.labD.Name = "labD";
-            this.labD.Size = new System.Drawing.Size(2, 15);
-            this.labD.TabIndex = 5;
+            this.labelDYF.AutoSize = true;
+            this.labelDYF.BackColor = System.Drawing.SystemColors.Control;
+            this.labelDYF.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelDYF.Location = new System.Drawing.Point(53, 247);
+            this.labelDYF.Name = "labelDYF";
+            this.labelDYF.Size = new System.Drawing.Size(2, 15);
+            this.labelDYF.TabIndex = 5;
             // 
-            // labX1
+            // labelDXG
             // 
-            this.labX1.AutoSize = true;
-            this.labX1.BackColor = System.Drawing.SystemColors.Control;
-            this.labX1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX1.Location = new System.Drawing.Point(42, 371);
-            this.labX1.Name = "labX1";
-            this.labX1.Size = new System.Drawing.Size(2, 15);
-            this.labX1.TabIndex = 6;
+            this.labelDXG.AutoSize = true;
+            this.labelDXG.BackColor = System.Drawing.SystemColors.Control;
+            this.labelDXG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelDXG.Location = new System.Drawing.Point(53, 273);
+            this.labelDXG.Name = "labelDXG";
+            this.labelDXG.Size = new System.Drawing.Size(2, 15);
+            this.labelDXG.TabIndex = 6;
             // 
-            // labX2
+            // labelDYG
             // 
-            this.labX2.AutoSize = true;
-            this.labX2.BackColor = System.Drawing.SystemColors.Control;
-            this.labX2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX2.Location = new System.Drawing.Point(42, 394);
-            this.labX2.Name = "labX2";
-            this.labX2.Size = new System.Drawing.Size(2, 15);
-            this.labX2.TabIndex = 7;
+            this.labelDYG.AutoSize = true;
+            this.labelDYG.BackColor = System.Drawing.SystemColors.Control;
+            this.labelDYG.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelDYG.Location = new System.Drawing.Point(53, 296);
+            this.labelDYG.Name = "labelDYG";
+            this.labelDYG.Size = new System.Drawing.Size(2, 15);
+            this.labelDYG.TabIndex = 7;
             // 
-            // labX2C
+            // labelMatrix
             // 
-            this.labX2C.AutoSize = true;
-            this.labX2C.BackColor = System.Drawing.SystemColors.Control;
-            this.labX2C.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX2C.Location = new System.Drawing.Point(114, 394);
-            this.labX2C.Name = "labX2C";
-            this.labX2C.Size = new System.Drawing.Size(2, 15);
-            this.labX2C.TabIndex = 13;
+            this.labelMatrix.AutoSize = true;
+            this.labelMatrix.BackColor = System.Drawing.SystemColors.Control;
+            this.labelMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMatrix.Location = new System.Drawing.Point(53, 394);
+            this.labelMatrix.Name = "labelMatrix";
+            this.labelMatrix.Size = new System.Drawing.Size(2, 15);
+            this.labelMatrix.TabIndex = 13;
             // 
-            // labX1C
+            // labelYY
             // 
-            this.labX1C.AutoSize = true;
-            this.labX1C.BackColor = System.Drawing.SystemColors.Control;
-            this.labX1C.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX1C.Location = new System.Drawing.Point(114, 371);
-            this.labX1C.Name = "labX1C";
-            this.labX1C.Size = new System.Drawing.Size(2, 15);
-            this.labX1C.TabIndex = 12;
+            this.labelYY.AutoSize = true;
+            this.labelYY.BackColor = System.Drawing.SystemColors.Control;
+            this.labelYY.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelYY.Location = new System.Drawing.Point(53, 360);
+            this.labelYY.Name = "labelYY";
+            this.labelYY.Size = new System.Drawing.Size(2, 15);
+            this.labelYY.TabIndex = 12;
             // 
-            // labDC
+            // labelXX
             // 
-            this.labDC.AutoSize = true;
-            this.labDC.BackColor = System.Drawing.SystemColors.Control;
-            this.labDC.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labDC.Location = new System.Drawing.Point(114, 345);
-            this.labDC.Name = "labDC";
-            this.labDC.Size = new System.Drawing.Size(2, 15);
-            this.labDC.TabIndex = 11;
+            this.labelXX.AutoSize = true;
+            this.labelXX.BackColor = System.Drawing.SystemColors.Control;
+            this.labelXX.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelXX.Location = new System.Drawing.Point(53, 334);
+            this.labelXX.Name = "labelXX";
+            this.labelXX.Size = new System.Drawing.Size(2, 15);
+            this.labelXX.TabIndex = 11;
             // 
-            // labX2Res
+            // labelX1Y1L1
             // 
-            this.labX2Res.AutoSize = true;
-            this.labX2Res.BackColor = System.Drawing.SystemColors.Control;
-            this.labX2Res.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX2Res.Location = new System.Drawing.Point(196, 394);
-            this.labX2Res.Name = "labX2Res";
-            this.labX2Res.Size = new System.Drawing.Size(2, 15);
-            this.labX2Res.TabIndex = 16;
+            this.labelX1Y1L1.AutoSize = true;
+            this.labelX1Y1L1.BackColor = System.Drawing.SystemColors.Control;
+            this.labelX1Y1L1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelX1Y1L1.Location = new System.Drawing.Point(53, 477);
+            this.labelX1Y1L1.Name = "labelX1Y1L1";
+            this.labelX1Y1L1.Size = new System.Drawing.Size(2, 15);
+            this.labelX1Y1L1.TabIndex = 16;
             // 
-            // labX1Res
+            // labelFynMatrix
             // 
-            this.labX1Res.AutoSize = true;
-            this.labX1Res.BackColor = System.Drawing.SystemColors.Control;
-            this.labX1Res.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labX1Res.Location = new System.Drawing.Point(196, 371);
-            this.labX1Res.Name = "labX1Res";
-            this.labX1Res.Size = new System.Drawing.Size(2, 15);
-            this.labX1Res.TabIndex = 15;
+            this.labelFynMatrix.AutoSize = true;
+            this.labelFynMatrix.BackColor = System.Drawing.SystemColors.Control;
+            this.labelFynMatrix.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelFynMatrix.Location = new System.Drawing.Point(53, 447);
+            this.labelFynMatrix.Name = "labelFynMatrix";
+            this.labelFynMatrix.Size = new System.Drawing.Size(2, 15);
+            this.labelFynMatrix.TabIndex = 15;
             // 
-            // labDRes
+            // labelMatrix2
             // 
-            this.labDRes.AutoSize = true;
-            this.labDRes.BackColor = System.Drawing.SystemColors.Control;
-            this.labDRes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.labDRes.Location = new System.Drawing.Point(196, 345);
-            this.labDRes.Name = "labDRes";
-            this.labDRes.Size = new System.Drawing.Size(2, 15);
-            this.labDRes.TabIndex = 14;
+            this.labelMatrix2.AutoSize = true;
+            this.labelMatrix2.BackColor = System.Drawing.SystemColors.Control;
+            this.labelMatrix2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelMatrix2.Location = new System.Drawing.Point(53, 421);
+            this.labelMatrix2.Name = "labelMatrix2";
+            this.labelMatrix2.Size = new System.Drawing.Size(2, 15);
+            this.labelMatrix2.TabIndex = 14;
             // 
             // label1
             // 
@@ -220,24 +223,57 @@
             this.complete.UseVisualStyleBackColor = true;
             this.complete.Click += new System.EventHandler(this.complete_Click);
             // 
+            // labelGiven
+            // 
+            this.labelGiven.AutoSize = true;
+            this.labelGiven.BackColor = System.Drawing.SystemColors.Control;
+            this.labelGiven.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelGiven.Location = new System.Drawing.Point(53, 502);
+            this.labelGiven.Name = "labelGiven";
+            this.labelGiven.Size = new System.Drawing.Size(2, 15);
+            this.labelGiven.TabIndex = 21;
+            // 
+            // labelFynXYL
+            // 
+            this.labelFynXYL.AutoSize = true;
+            this.labelFynXYL.BackColor = System.Drawing.SystemColors.Control;
+            this.labelFynXYL.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelFynXYL.Location = new System.Drawing.Point(53, 525);
+            this.labelFynXYL.Name = "labelFynXYL";
+            this.labelFynXYL.Size = new System.Drawing.Size(2, 15);
+            this.labelFynXYL.TabIndex = 22;
+            // 
+            // labelAnswers
+            // 
+            this.labelAnswers.AutoSize = true;
+            this.labelAnswers.BackColor = System.Drawing.SystemColors.Control;
+            this.labelAnswers.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.labelAnswers.Location = new System.Drawing.Point(53, 555);
+            this.labelAnswers.Name = "labelAnswers";
+            this.labelAnswers.Size = new System.Drawing.Size(2, 15);
+            this.labelAnswers.TabIndex = 23;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(428, 489);
+            this.ClientSize = new System.Drawing.Size(428, 680);
+            this.Controls.Add(this.labelAnswers);
+            this.Controls.Add(this.labelFynXYL);
+            this.Controls.Add(this.labelGiven);
             this.Controls.Add(this.complete);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.variantT);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.labX2Res);
-            this.Controls.Add(this.labX1Res);
-            this.Controls.Add(this.labDRes);
-            this.Controls.Add(this.labX2C);
-            this.Controls.Add(this.labX1C);
-            this.Controls.Add(this.labDC);
-            this.Controls.Add(this.labX2);
-            this.Controls.Add(this.labX1);
-            this.Controls.Add(this.labD);
+            this.Controls.Add(this.labelX1Y1L1);
+            this.Controls.Add(this.labelFynMatrix);
+            this.Controls.Add(this.labelMatrix2);
+            this.Controls.Add(this.labelMatrix);
+            this.Controls.Add(this.labelYY);
+            this.Controls.Add(this.labelXX);
+            this.Controls.Add(this.labelDYG);
+            this.Controls.Add(this.labelDXG);
+            this.Controls.Add(this.labelDYF);
             this.Controls.Add(this.labelDXF);
             this.Controls.Add(this.labelF);
             this.Controls.Add(this.labelG);
@@ -258,19 +294,22 @@
         private System.Windows.Forms.Label labelG;
         private System.Windows.Forms.Label labelF;
         private System.Windows.Forms.Label labelDXF;
-        private System.Windows.Forms.Label labD;
-        private System.Windows.Forms.Label labX1;
-        private System.Windows.Forms.Label labX2;
-        private System.Windows.Forms.Label labX2C;
-        private System.Windows.Forms.Label labX1C;
-        private System.Windows.Forms.Label labDC;
-        private System.Windows.Forms.Label labX2Res;
-        private System.Windows.Forms.Label labX1Res;
-        private System.Windows.Forms.Label labDRes;
+        private System.Windows.Forms.Label labelDYF;
+        private System.Windows.Forms.Label labelDXG;
+        private System.Windows.Forms.Label labelDYG;
+        private System.Windows.Forms.Label labelMatrix;
+        private System.Windows.Forms.Label labelYY;
+        private System.Windows.Forms.Label labelXX;
+        private System.Windows.Forms.Label labelX1Y1L1;
+        private System.Windows.Forms.Label labelFynMatrix;
+        private System.Windows.Forms.Label labelMatrix2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox variantT;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button complete;
+        private System.Windows.Forms.Label labelGiven;
+        private System.Windows.Forms.Label labelFynXYL;
+        private System.Windows.Forms.Label labelAnswers;
     }
 }
 
