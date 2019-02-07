@@ -27,6 +27,8 @@ namespace diplom
         {
             InitializeComponent();
             allLines = data;
+            Label[] labels = { labelG, labelF, labelDXF, labelDYF, labelDXG, labelDYG, labelXX, labelYY };
+            onOffLabels(labels);
         }
 
         private void pathB_Click(object sender, EventArgs e)
@@ -46,227 +48,11 @@ namespace diplom
 
         }
 
-        public float retNum(string str)
-        {
-            float num = 0;
-            int i = 0;
-
-            foreach (var a in str)
-                if (Char.IsNumber(a) || a == '-')
-                {
-                    i = str.IndexOf(a);
-                    break;
-                }
-
-            string numStr = "";
-
-            do
-            {
-                numStr += str[i];
-                i++;
-            } while (Char.IsNumber(str[i]) || str[i] == '.');
-
-
-
-            return num = float.Parse(numStr, CultureInfo.InvariantCulture.NumberFormat);
-        }
-
         private void Form1_Load(object sender, EventArgs e)
         {
 
         }
 
-        void fileCheck()
-        {
-            StreamReader myReader = new StreamReader(pathT.Text);
-            string text = myReader.ReadToEnd();
-            string transLine = "";
-            bool func = false;
-            string line1 = line[1], arg1 = "", arg2 = "", arg3 = "", ure = "";
-            int i = 0;
-            while (line1.IndexOf('(') != -1)
-            {
-                i = 0;
-                while (line1[i] != null)
-                {
-                    arg1 = ""; arg2 = ""; arg3 = ""; ure = "";
-                    if (line1[i] == ')')
-                    {
-                        while (line1[i] != '(') i--;
-                        while (line1[i] != ' ')
-                        {
-                            i++;
-                            if (line1[i] != ' ') arg1 += line1[i];
-                        }
-                        do
-                        {
-                            i++;
-                            if (line1[i] != ' ') arg2 += line1[i];
-                        }
-                        while (line1[i] != ' ');
-                        do
-                        {
-                            i++;
-                            if (line1[i] != ')') arg3 += line1[i];
-                        }
-                        while (line1[i] != ')');
-                        if (arg1 == "^")
-                            ure += arg2 + "^" + arg3;
-                        else if (arg1 == "*")
-                            ure += arg2 + "/*/" + arg3;
-                        else if (arg1 == "+")
-                            ure += arg2 + "/+/" + arg3;
-                        else if (arg1 == "-")
-                            ure += arg2 + "/-/" + arg3;
-                        line1 = line1.Replace("(" + arg1 + " " + arg2 + " " + arg3 + ")", ure);
-                        break;
-                    }
-                    i++;
-                }
-            }
-            ure = ""; arg1 = ""; arg2 = ""; arg3 = "";
-            i = line1.IndexOf('{');
-
-            while (line1[i] != ' ')
-            {
-                i++;
-                if (line1[i] != ' ') arg1 += line1[i];
-            }
-            i++;
-            while (line1[i] != ' ')
-            {
-                if (line1[i] != ' ') arg2 += line1[i];
-                i++;
-            }
-            while (line1[i] != '}')
-            {
-                i++;
-                if (line1[i] != '}') arg3 += line1[i];
-            }
-            ure = arg1 + "(" + arg2 + "," + arg3 + ") := ";
-            line1 = line1.Replace("{" + arg1 + " " + arg2 + " " + arg3 + "}", ure);
-            line1 = line1.Replace('/', ' ');
-            MessageBox.Show(line1);
-            myReader.Close();
-        }
-
-        string lineTransform(string line1)
-        {
-            string arg1 = "", arg2 = "", arg3 = "", arg4 = "", ure = "", saveArg1, saveArg2, saveArg3;
-            int i = 0;
-            while (line1.IndexOf('(') != -1)
-            {
-                int parents = 0;
-                i = 0;
-                while (line1[i] != null)
-                {
-                    arg1 = ""; arg2 = ""; arg3 = ""; ure = "<ml:apply>\n";
-                    if (line1[i] == ')')
-                    {
-                        while (line1[i] != '(') i--;
-                        while (line1[i] != ' ')
-                        {
-                            i++;
-                            if (line1[i] != ' ') arg1 += line1[i];
-                        }
-                        do
-                        {
-                            i++;
-                            if (line1[i] != ' ') arg2 += line1[i];
-                        }
-                        while (line1[i] != ' ');
-                        do
-                        {
-                            i++;
-                            if (line1[i] != ')') arg3 += line1[i];
-                        }
-                        while (line1[i] != ')');
-                        saveArg1 = arg1; saveArg2 = arg2; saveArg3 = arg3;
-                        if (arg1 == "^")
-                            ure += "<ml:pow/>\n";
-                        else if (arg1 == "*")
-                            ure += "<ml:mult/>\n";
-                        else if (arg1 == "+")
-                            ure += "<ml:plus/>\n";
-                        else if (arg1 == "-")
-                            ure += "<ml:minus/>\n";
-                        else if (arg1 == "::")
-                            ure += "<ml:div/>\n";
-                        else if (arg1 == "_")
-                        {
-                            line1 = line1.Replace("(" + arg1 + " " + arg2 + " " + arg3 + ")", checkNumber(arg2));
-                            break;
-                        }
-                        if (arg1 == "^" || arg1 == "-" || arg1 == "*" || arg1 == "+" || arg1 == "::")
-                        {
-                            if (arg2.IndexOf('<') == -1) ure += checkNumber(arg2);
-                            else ure += arg2;
-                            if (arg3.IndexOf('<') == -1) ure += checkNumber(arg3);
-                            else ure += arg3;
-                        }
-                        line1 = line1.Replace("(" + saveArg1 + " " + saveArg2 + " " + saveArg3 + ")", ure + "</ml:apply>\n");
-                        break;
-                    }
-                    i++;
-                }
-            }
-            ure = ""; arg1 = ""; arg2 = ""; arg3 = "";
-            if (line1.IndexOf('{') != -1)
-            {
-                i = line1.IndexOf('{');
-                while (line1[i] != ' ')
-                {
-                    i++;
-                    if (line1[i] != ' ') arg1 += line1[i];
-                }
-                i++;
-                while (line1[i] != ' ')
-                {
-                    if (line1[i] != ' ') arg2 += line1[i];
-                    i++;
-                }
-                while (line1[i] != '}')
-                {
-                    i++;
-                    if (line1[i] != '}') arg3 += line1[i];
-                }
-                ure = "<ml:function>\n<ml:id xml:space=\"preserve\">" + arg1 + "</ml:id>\n<ml:boundVars>\n<ml:id xml:space=\"preserve\">" + arg2 + "</ml:id>\n<ml:id xml:space=\"preserve\">" + arg3 + "</ml:id>\n</ml:boundVars>\n</ml:function>\n";
-                line1 = line1.Replace("{" + arg1 + " " + arg2 + " " + arg3 + "}", ure);
-            }
-            else
-                if (line1.IndexOf('\'') != -1)
-            {
-                i = line1.IndexOf('\'');
-                while (line1[i] != ' ')
-                {
-                    i++;
-                    if (line1[i] != ' ') arg1 += line1[i];
-                }
-                i++;
-                while (line1[i] != ' ')
-                {
-                    if (line1[i] != ' ') arg2 += line1[i];
-                    i++;
-                }
-                i++;
-                while (line1[i] != ' ')
-                {
-                    if (line1[i] != ' ') arg3 += line1[i];
-                    i++;
-                }
-                while (line1[i] != '\'')
-                {
-                    i++;
-                    if (line1[i] != '\'') arg4 += line1[i];
-                }
-                ure = "<ml:apply>\n<ml:derivative/>\n<ml:lambda>\n<ml:boundVars>\n<ml:id xml:space=\"preserve\">" + arg1 + "</ml:id>\n</ml:boundVars>\n<ml:apply>\n<ml:id xml:space=\"preserve\">" + arg2 + "</ml:id>\n<ml:sequence>\n<ml:id xml:space=\"preserve\">" + arg3 + "</ml:id>\n<ml:id xml:space=\"preserve\">" + arg4 + "</ml:id>\n</ml:sequence>\n</ml:apply>\n</ml:lambda>\n</ml:apply>\n<ml:symResult>\n";
-                line1 = line1.Replace("\'" + arg1 + " " + arg2 + " " + arg3 + " " + arg4 + "\'", ure);
-            }
-            line1 = line1.Replace('_', ' ');
-            line1 = line1.Replace("[", "<ml:parens>\n");
-            line1 = line1.Replace("]", "</ml:parens>\n");
-            return line1;
-        }
 
         string findHeadSequence(string line1, string text)
         {
@@ -365,6 +151,7 @@ namespace diplom
             sequence = sequence.Replace("<ml:minus/>", "-");
             sequence = sequence.Replace("<ml:div/>", "::");
             sequence = sequence.Replace("<ml:pow/>", "^");
+            sequence = sequence.Replace("<ml:sqrt/>", "sqrt");
 
             sequence = sequence.Replace('\n', ' ');
 
@@ -377,20 +164,35 @@ namespace diplom
             string arg1 = "", arg2 = "", arg3 = "", ure = "", arg4= "";
             if (line1.IndexOf('{') != -1)
             {
-                i = line1.IndexOf('{')+1;
+                i = line1.IndexOf('{') + 1;
                 for (; line1[i] != ' '; i++)
                     arg1 += line1[i];
                 i++;
                 for (; line1[i] != ' '; i++)
                     arg2 += line1[i];
                 i++;
-                for (; line1[i] != '}'; i++)
+                for (; line1[i] != '}' && line1[i] != ' '; i++)
                     arg3 += line1[i];
-                ure = "<ml:function>\n" + checkNumber(arg1) + "<ml:boundVars>\n" + checkNumber(arg2) + checkNumber(arg3) + "</ml:boundVars>\n</ml:function>\n";
-                line1 = line1.Replace("{" + arg1 + " " + arg2 + " " + arg3 + "}", ure);
-                return line1;
+                if (line1[i] == ' ')
+                {
+                    i++;
+                    for (; line1[i] != '}'; i++)
+                        arg4 += line1[i];
+                }
+                if (arg4 == "")
+                {
+                    ure = "<ml:function>\n" + checkNumber(arg1) + "<ml:boundVars>\n" + checkNumber(arg2) + checkNumber(arg3) + "</ml:boundVars>\n</ml:function>\n";
+                    line1 = line1.Replace("{" + arg1 + " " + arg2 + " " + arg3 + "}", ure);
+                }
+                else
+                {
+                    ure = "<ml:function>\n" + checkNumber(arg1) + "<ml:boundVars>\n" + checkNumber(arg2) + checkNumber(arg3) + checkNumber(arg4) + "</ml:boundVars>\n</ml:function>\n";
+                    line1 = line1.Replace("{" + arg1 + " " + arg2 + " " + arg3 + ' ' + arg4 + "}", ure);
+                }
+                
+                return line1.Replace("_", " ");
             }
-            arg1 = ""; arg2 = ""; arg3 = ""; ure = "";
+            arg1 = ""; arg2 = ""; arg3 = ""; arg4 = ""; ure = "";
             if (line1.IndexOf('\'') != -1)
             {
                 i = line1.IndexOf('\'')+1;
@@ -406,7 +208,7 @@ namespace diplom
                     arg4 += line1[i];
                 ure = "<ml:apply>\n<ml:derivative/>\n<ml:lambda>\n<ml:boundVars>\n" + checkNumber(arg1) + "</ml:boundVars>\n<ml:apply>\n" + checkNumber(arg2)+ "<ml:sequence>\n" + checkNumber(arg3)+ checkNumber(arg3) + "</ml:sequence>\n</ml:apply>\n</ml:lambda>\n</ml:apply>\n";
                 line1 = line1.Replace("\'" + arg1 + " " + arg2 + " " + arg3 + arg4 + "\'", ure);
-                return line1;
+                return line1.Replace("_", " ");
             }
             arg1 = ""; arg2 = ""; arg3 = ""; ure = "";
             while (line1.IndexOf(')')!=-1)
@@ -417,9 +219,10 @@ namespace diplom
                 for (; line1[i] != ' '; i++)
                     arg1 += line1[i];
                 i++;
-                for (; line1[i] != ' '; i++)
+                for (; line1[i] != ' ' && line1[i] != ')'; i++)
                     arg2 += line1[i];
                 i++;
+                if(arg1 != "sqrt")
                 for (; line1[i] != ')'; i++)
                     arg3 += line1[i];
                 if (arg1 == "+")
@@ -432,17 +235,20 @@ namespace diplom
                     ure += "<ml:div/>\n";
                 else if (arg1 == "^")
                     ure += "<ml:pow/>\n";
-                if (arg1 == "^" || arg1 == "-" || arg1 == "*" || arg1 == "+" || arg1 == "::")
+                else if(arg1 == "sqrt")
+                    ure += "<ml:sqrt/>\n";
+                if (arg1 == "^" || arg1 == "-" || arg1 == "*" || arg1 == "+" || arg1 == "::" || arg1 == "sqrt")
                 {
                     if (arg2.IndexOf('<') == -1) ure += checkNumber(arg2);
                     else ure += arg2;
-                    if (arg3.IndexOf('<') == -1) ure += checkNumber(arg3);
+                    if (arg3.IndexOf('<') == -1 && arg1!="sqrt") ure += checkNumber(arg3);
                     else ure += arg3;
                 }
-                line1 = line1.Replace("(" + arg1 + " " + arg2 + " " + arg3 + ")", "<ml:apply>\n" + ure + "</ml:apply>\n").Replace("[", "<ml:parens>\n").Replace("]", "</ml:parens>\n");
+                if (arg1 != "sqrt") line1 = line1.Replace("(" + arg1 + " " + arg2 + " " + arg3 + ")", "<ml:apply>\n" + ure + "</ml:apply>\n").Replace("[", "<ml:parens>\n").Replace("]", "</ml:parens>\n");
+                else line1 = line1.Replace("(" + arg1 + " " + arg2 + ")", "<ml:apply>\n" + ure + "</ml:apply>\n").Replace("[", "<ml:parens>\n").Replace("]", "</ml:parens>\n");
                 arg1 = ""; arg2 = ""; arg3 = "";ure = "";
             }
-            return line1;
+            return line1.Replace("_", " ");
         }
 
         double calculater(string sequence, double factor = 7)//считает выражение в польской нотации
@@ -467,19 +273,22 @@ namespace diplom
                     do
                     {
                         i++;
-                        if (sequence[i] != ' ') arg2 += sequence[i];
+                        if (sequence[i] != ' ' && sequence[i] != ')') arg2 += sequence[i];
                     }
-                    while (sequence[i] != ' ');
+                    while (sequence[i] != ' ' && sequence[i] != ')');
                     saveArg2 = arg2;
                     if (!Int32.TryParse(arg2, out int n)) arg2 = factor.ToString();
-                    do
+                    if (arg1 != "sqrt")
                     {
-                        i++;
-                        if (sequence[i] != ')') arg3 += sequence[i];
+                        do
+                        {
+                            i++;
+                            if (sequence[i] != ')') arg3 += sequence[i];
+                        }
+                        while (sequence[i] != ')');
+                        saveArg3 = arg3;
+                        if (!Int32.TryParse(arg3, out int m)) arg3 = factor.ToString();
                     }
-                    while (sequence[i] != ')');
-                    saveArg3 = arg3;
-                    if (!Int32.TryParse(arg3, out int m)) arg3 = factor.ToString();
                     if (arg1 == "^")
                         result = Math.Pow(Convert.ToDouble(arg2), Convert.ToDouble(arg3));
                     else if (arg1 == "*")
@@ -490,7 +299,11 @@ namespace diplom
                         result = Convert.ToDouble(arg2) - Convert.ToDouble(arg3);
                     else if (arg1 == "::")
                         result = Convert.ToDouble(arg2) / Convert.ToDouble(arg3);
-                    sequence = sequence.Replace('(' + arg1 + ' ' + saveArg2 + ' ' + saveArg3 + ')', result.ToString());
+                    else if (arg1 == "sqrt")
+                        result = Math.Sqrt(Convert.ToDouble(arg2));
+                    if(arg1!= "sqrt")
+                        sequence = sequence.Replace('(' + arg1 + ' ' + saveArg2 + ' ' + saveArg3 + ')', result.ToString());
+                    else sequence = sequence.Replace('(' + arg1 + ' ' + saveArg2 + ')', result.ToString());
                 }
                 arg1 = ""; arg2 = ""; arg3 = "";
             }
@@ -616,24 +429,7 @@ namespace diplom
             if (text.IndexOf(line) != -1) return true;
             else return false;
         }
-
-        bool checkX1Y1L1(string text)
-        {
-            int count = 0;
-            string[] line =
-            {
-                "<ml:id xml:space=\"preserve\">x</ml:id>\n<ml:real>1</ml:real>",
-                "<ml:id xml:space=\"preserve\">y</ml:id>\n<ml:real>1</ml:real>",
-                "<ml:id xml:space=\"preserve\">λ</ml:id>\n<ml:real>1</ml:real>"
-            };
-            foreach (var a in line)
-            {
-                if (text.IndexOf(a) != -1) count++;
-            }
-            if (count == 3) return true;
-            else return false;
-        }
-
+        
         bool checkFynXYL(string text)
         {
             string fynxyl = "<ml:apply>\n<ml:id xml:space=\"preserve\">Fyn</ml:id>\n<ml:sequence>\n<ml:id xml:space=\"preserve\">x</ml:id>\n<ml:id xml:space=\"preserve\">y</ml:id>\n<ml:id xml:space=\"preserve\">λ</ml:id>\n</ml:sequence>\n</ml:apply>";
@@ -754,6 +550,57 @@ namespace diplom
             }
         }
 
+        void onLabel(Label lbl, string text = "")//меняет видимость и текст лейбла
+        {
+            lbl.Visible = true;
+            lbl.Text = text;
+        }
+
+        void onOffLabels(Label[] labels)
+        {
+            foreach (var a in labels)
+                a.Visible = !a.Visible;
+        }
+
+        bool equalNumber(string x, string text)
+        {
+            int i = 0, j = 0;
+            string line = "", inverseLine = "";
+            while(text.IndexOf("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n")!=-1)
+            {
+                i = text.IndexOf("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n") - 2;
+                while(text[i]!='\n')
+                {
+                    inverseLine += text[i];
+                    i--;
+                }
+                j = inverseLine.Length-1;
+                while (-1!=j)
+                {
+                    line += inverseLine[j];
+                    j--;
+                }
+                if (line.IndexOf("<ml:define") != -1)
+                {
+                    i = text.IndexOf("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n");
+                    break;
+                }
+                else
+                {
+                    i = text.IndexOf("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n");
+                    text = text.Remove(i, ("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n").Length);
+                }
+                inverseLine = ""; line = "";
+            }
+            j = ("<ml:id xml:space=\"preserve\">" + x + "</ml:id>\n").Length + i;
+            line = "";
+            for (; text[j] != '\n'; j++)
+                line += text[j];
+            line = line.Replace("<ml:real>", "").Replace("</ml:real>", "");
+            if (Int32.TryParse(line, out int n)) return true;
+            else return false;
+        }
+
         private void complete_Click(object sender, EventArgs e)
         {
             bool variantF = false, fileOK = true;
@@ -796,16 +643,6 @@ namespace diplom
                     {
                         case "1"://множители Лагранжа
                         {
-                                //Label[] labels = {labelG,labelF,labelDXF, labelDYF, labelDXG, labelDYG};
-                                //int i = 0;
-                                //while (i <= 6)
-                                //{
-                                //    currentLine = lineTransform(line[i+2]);
-                                //    if (text.IndexOf(currentLine) != -1) labels[i].Text = "+";//MessageBox.Show("ура");
-                                //    else { error = i + 1; break; }
-                                //    i++;
-                                //}
-                                
                                 int i = 0;
                                 double result1 = 0, result2 = 0;
                                 string lineWithReplace = "", lineWithReplace2 = "", lineWithReplace1 = "", lineWithReplace3 = "", lineWithReplace4 = "";
@@ -819,10 +656,10 @@ namespace diplom
                                         result1 = calculater(poland);
                                         lineWithReplace = line[i + 2].Replace("[", "").Replace("]", "");
                                         result2 = calculater(lineWithReplace);
-                                        if (result1 == result2) labels[i].Text = "+";
+                                        if (result1 == result2) onLabel(labels[i],"+");
                                         else
                                         {
-                                            labels[i].Text = "-";
+                                            onLabel(labels[i], "-");
                                             error(i + 1);
                                             err = i + 1;
                                             break;
@@ -838,10 +675,10 @@ namespace diplom
                                         lineWithReplace = lineWithReplace.Replace("[", "").Replace("]", "");
                                         result1 = calculater(lineWithReplace);
                                         result2 = calculater(groupForSequences(lineWithReplace1, lineWithReplace2));
-                                        if (result1 == result2) labels[i].Text = "+";
+                                        if (result1 == result2) onLabel(labels[i], "+");
                                         else
                                         {
-                                            labels[i].Text = "-";
+                                            onLabel(labels[i], "-");
                                             error(i + 1);
                                             err = i + 1;
                                             break;
@@ -857,30 +694,30 @@ namespace diplom
                                     string arg2 = transFromPolandToMcd(halfLine(line[2])).Replace("<ml:function>", "<ml:apply>").Replace("</ml:function>", "</ml:apply>").Replace("<ml:boundVars>", "<ml:sequence>").Replace("</ml:boundVars>", "</ml:sequence>");
                                     string arg3 = groupForHead(lineWithReplace3, lineWithReplace4).Replace("<ml:symResult>\n", "");
                                     string matrix = matrixCraft(arg1, arg2, arg3).Replace("_", " ");//132
-                                    if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                    if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                     else
                                     {
                                         matrix = matrixCraft(arg1, arg3, arg2).Replace("_", " ");//123
-                                        if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                        if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                         else
                                         {
                                             matrix = matrixCraft(arg2, arg1, arg3).Replace("_", " ");//231
-                                            if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                            if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                             else
                                             {
                                                 matrix = matrixCraft(arg3, arg1, arg2).Replace("_", " ");//213
-                                                if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                                if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                                 else
                                                 {
                                                     matrix = matrixCraft(arg2, arg1, arg3).Replace("_", " ");//321
-                                                    if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                                    if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                                     else
                                                     {
                                                         matrix = matrixCraft(arg2, arg3, arg1).Replace("_", " ");//312
-                                                        if (text.IndexOf(matrix) != -1) labelMatrix.Text = "+";
+                                                        if (text.IndexOf(matrix) != -1) onLabel(labelMatrix, "+");
                                                         else
                                                         {
-                                                            labelMatrix.Text = "-";
+                                                            onLabel(labelMatrix, "-");
                                                             error(i + 1);
                                                             err = i + 1;
                                                             break;
@@ -888,7 +725,6 @@ namespace diplom
                                                     }
                                                 }
                                             }
-
                                         }
                                     }
                                     if (err != 0) break;
@@ -898,55 +734,55 @@ namespace diplom
                                     lineWithReplace3 = halfLine(line[5], 1);
                                     lineWithReplace4 = halfLine(line[7], 1);
                                     double sumRowsDb = calculater("(+ " + lineWithReplace1 + " (* λ " + lineWithReplace2 + "))") + calculater("(+ " + lineWithReplace3 + " (* λ " + lineWithReplace4 + "))") + calculater(halfLine(line[2], 1));
-                                    if (sumRowsFile == sumRowsDb) labelMatrix2.Text = "+";
+                                    if (sumRowsFile == sumRowsDb) onLabel(labelMatrix2, "+");
                                     else
                                     {
-                                        labelMatrix2.Text = "-";
+                                        onLabel(labelMatrix2, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
                                     }
                                     if (err != 0) break;
-                                    if (checkFyn(matrix, text)) labelFynMatrix.Text = "+";
+                                    if (checkFyn(matrix, text)) onLabel(labelFynMatrix, "+");
                                     else
                                     {
-                                        labelFynMatrix.Text = "-";
+                                        onLabel(labelFynMatrix, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
                                     }
                                     if (err != 0) break;
-                                    if (checkX1Y1L1(text)) labelX1Y1L1.Text = "+";
+                                    if (equalNumber("x", text) && equalNumber("y", text) && equalNumber("λ", text)) onLabel(labelX1Y1L1, "+");
                                     else
                                     {
-                                        labelX1Y1L1.Text = "-";
+                                        onLabel(labelX1Y1L1, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
                                     }
                                     if (err != 0) break;
-                                    if (text.IndexOf("Given") != -1) labelGiven.Text = "+";
+                                    if (text.IndexOf("Given") != -1) onLabel(labelGiven, "+"); 
                                     else
                                     {
-                                        labelGiven.Text = "-";
+                                        onLabel(labelGiven, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
                                     }
                                     if (err != 0) break;
-                                    if (checkFynXYL(text)) labelFynXYL.Text = "+";
+                                    if (checkFynXYL(text)) onLabel(labelFynXYL, "+"); 
                                     else
                                     {
-                                        labelFynXYL.Text = "-";
+                                        onLabel(labelFynXYL, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
                                     }
                                     if (err != 0) break;
-                                    if (checkAnswer(text, line[8], line[9], line[10])) labelAnswers.Text = "+";
+                                    if (checkAnswer(text, line[8], line[9], line[10])) onLabel(labelAnswers, "+");
                                     else
                                     {
-                                        labelAnswers.Text = "-";
+                                        onLabel(labelAnswers, "-");
                                         error(i + 1);
                                         err = i + 1;
                                         break;
@@ -956,7 +792,19 @@ namespace diplom
                         }
                         case "2"://без ограничений
                             {
-
+                                string quest = transFromPolandToMcd(halfLine(line[2])) + transFromPolandToMcd(halfLine(line[2], 1));
+                                if (text.IndexOf(quest) != -1) onLabel(labels[0], "+");
+                                else onLabel(labels[0], "-");
+                                if(equalNumber("x", text)&& equalNumber("y", text)&& equalNumber("z", text)) onLabel(labels[1], "+");
+                                else onLabel(labels[1], "-");
+                                if () onLabel(labelAnswers, "+");
+                                else
+                                {
+                                    onLabel(labelAnswers, "-");
+                                    error(i + 1);
+                                    err = i + 1;
+                                    break;
+                                }
                                 break;
                             }
                         default:break;
